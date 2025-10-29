@@ -2,14 +2,29 @@ import Book from "../models/Book.js";
 
 export const createBook = async (req, res) => {
     try {
-        const { title, description, pdfUrl, coverImageUrl } = req.body;
-        const newBook = new Book({ title, description, pdfUrl, coverImageUrl });
+        const { title, description } = req.body;
+        const pdfUrl = req.files?.pdf?.[0]?.path || null;
+        const coverImageUrl = req.files?.coverPhoto?.[0]?.path || null;
+        const newBook = new Book({
+            title,
+            description,
+            pdfUrl,
+            coverImageUrl,
+        });
         await newBook.save();
-        res.status(201).json(newBook);
+        res.status(201).json({
+            message: "Book created successfully",
+            book: newBook,
+        });
     } catch (error) {
-        res.status(500).json({ message: "Error creating book", error });
+        console.error("Error creating book:", error);
+        res.status(500).json({
+            message: "Error creating book",
+            error: error.message,
+        });
     }
 };
+
 
 export const getBooks = async (req, res) => {
     try {
@@ -34,7 +49,6 @@ export const getBookById = async (req, res) => {
 
 export const updateBook = async (req, res) => {
     try {
-        const { title, description, pdfUrl, coverImageUrl } = req.body;
         const updatedBook = await Book.findByIdAndUpdate(
             req.params.id,
             { ...req.body },

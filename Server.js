@@ -7,6 +7,11 @@ import cookieParser from "cookie-parser";
 const app = express();
 const PORT = 5000;
 
+
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true }));
+
+
 import userRoutes from "./routes/useRoutes.js";
 import formRoutes from './routes/FormRoutes.js';
 import formSubmissionRoutes from "./routes/FormSubmissionRoutes.js";
@@ -18,8 +23,7 @@ import departmentRoutes from "./routes/DepartmentRoutes.js";
 import parentComplaints from "./routes/parentComplaintRoutes.js";
 import bookRoutes from "./routes/BookRoutes.js";
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+
 app.use(cookieParser());
 
 app.use(
@@ -49,5 +53,6 @@ app.use(teacherComplaint);
 app.use(departmentRoutes);
 app.use(parentComplaints);
 app.use(bookRoutes);
+
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
