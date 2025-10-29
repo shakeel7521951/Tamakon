@@ -22,6 +22,7 @@ import teacherComplaint from "./routes/TeacherComplaitRoutes.js";
 import departmentRoutes from "./routes/DepartmentRoutes.js";
 import parentComplaints from "./routes/parentComplaintRoutes.js";
 import bookRoutes from "./routes/BookRoutes.js";
+import blogRoutes from "./routes/blogRoutes.js";
 
 
 app.use(cookieParser());
@@ -53,6 +54,7 @@ app.use(teacherComplaint);
 app.use(departmentRoutes);
 app.use(parentComplaints);
 app.use(bookRoutes);
+app.use(blogRoutes);
 
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
