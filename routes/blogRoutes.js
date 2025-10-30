@@ -3,6 +3,7 @@ const router = express.Router();
 import {
     createBlog,
     deleteBlog,
+    getBlogById,
     getBlogs,
 } from '../controllers/BlogController.js';
 import upload from '../middlewares/multerConfig.js';
@@ -17,5 +18,6 @@ router.post(
 );
 router.get('/get-all-blogs', getBlogs);
 router.delete('/delete-blog/:id', deleteBlog);
+router.get('/get-blog/:id', getBlogById);
 
 export default router;
